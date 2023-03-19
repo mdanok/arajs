@@ -1,5 +1,5 @@
-export const THOUSAND_MULTIPLE = [];
-export const NUMBER_TEN_MASCULIN_UNITS = [
+const THOUSAND_MULTIPLE = [];
+const NUMBER_TEN_MASCULIN_UNITS = [
   "اثني",
   "اثنا",
   "إثني",
@@ -13,7 +13,7 @@ export const NUMBER_TEN_MASCULIN_UNITS = [
   "ثمانية",
   "تسعة",
 ];
-export const NUMBER_TEN_FEMININ_UNITS = [
+const NUMBER_TEN_FEMININ_UNITS = [
   "إحدى",
   "اثنتا",
   "اثنتي",
@@ -27,7 +27,7 @@ export const NUMBER_TEN_FEMININ_UNITS = [
   "تسع",
 ];
 
-export const NUMBER_WORDS = {
+const NUMBER_WORDS = {
   صفر: 0,
   واحد: 1,
   واحدة: 1,
@@ -114,7 +114,7 @@ export const NUMBER_WORDS = {
   مليارات: 1000000000,
 };
 
-export const VOCALIZED_NUMBER_WORDS = {
+const VOCALIZED_NUMBER_WORDS = {
   صفر: {
     i: "صِفْر",
     r: "صِفْرُ",
@@ -939,7 +939,7 @@ export const VOCALIZED_NUMBER_WORDS = {
   },
 };
 
-export const UNIT_WORDS = {
+const UNIT_WORDS = {
   أذرع: { i: "أّذْرُعٍ", a: "", n: "", p: "أّذْرُعٍ" },
   أرطال: { i: "أَرْطَالٍ", a: "", n: "", p: "أَرْطَالٍ" },
   أسابيع: { i: "أَسَابِيعَ", a: "", n: "", p: "أَسَابِيعَ" },
@@ -1030,7 +1030,7 @@ export const UNIT_WORDS = {
   يوما: { i: "يَوْمًا", a: "", n: "يَوْمًا", p: "أَيَّامٍ" },
 };
 
-export const INDIVIDUALS = {};
+const INDIVIDUALS = {};
 INDIVIDUALS[0] = {};
 INDIVIDUALS[1] = {};
 INDIVIDUALS[2] = {};
@@ -1152,7 +1152,8 @@ INDIVIDUALS[600] = "ستمئة";
 INDIVIDUALS[700] = "سبعمئة";
 INDIVIDUALS[800] = "ثمانمئة";
 INDIVIDUALS[900] = "تسعمئة";
-export const COMPLICATIONS = { 1: {}, 2: {}, 3: {} };
+
+const COMPLICATIONS = { 1: {}, 2: {}, 3: {} };
 COMPLICATIONS[1][1] = "ألفان";
 COMPLICATIONS[1][2] = "ألفين";
 COMPLICATIONS[1][3] = "آلاف";
@@ -1168,7 +1169,7 @@ COMPLICATIONS[3][2] = "مليارين";
 COMPLICATIONS[3][3] = "مليارات";
 COMPLICATIONS[3][4] = "مليار";
 
-export const UNITS_ORDINAL_WORDS = {
+const UNITS_ORDINAL_WORDS = {
   ثمان: "ثامن",
   ست: "سادس",
   إثني: "ثاني",
@@ -1199,7 +1200,8 @@ export const UNITS_ORDINAL_WORDS = {
   إثنا: "ثاني",
   إثنان: "ثاني",
 };
-export const UNITS_ORDINAL_WORDS_FEMININ = {
+
+const UNITS_ORDINAL_WORDS_FEMININ = {
   ثمان: "ثامنة",
   ست: "سادسة",
   إثني: "ثانية",
@@ -1231,7 +1233,7 @@ export const UNITS_ORDINAL_WORDS_FEMININ = {
   إثنان: "ثانية",
 };
 
-export function __normalize_composite_dict(le_dict, normalizer) {
+function __normalize_composite_dict(le_dict, normalizer) {
   let res = {};
   for (let [key, value] of Object.entries(le_dict)) {
     if (typeof value === "object" && !Array.isArray(value)) {
@@ -1243,7 +1245,7 @@ export function __normalize_composite_dict(le_dict, normalizer) {
   return res;
 }
 
-export function normalize_constants() {
+function normalize_constants() {
   let normalizer = normalize_searchtext();
   let dict_keys_normalizer = (dict) => {
     let result = {};
@@ -1273,3 +1275,18 @@ export function normalize_constants() {
 
   INDIVIDUALS = __normalize_composite_dict(INDIVIDUALS, normalizer);
 }
+
+module.exports = {
+  THOUSAND_MULTIPLE,
+  NUMBER_TEN_MASCULIN_UNITS,
+  NUMBER_TEN_FEMININ_UNITS,
+  NUMBER_WORDS,
+  VOCALIZED_NUMBER_WORDS,
+  UNIT_WORDS,
+  INDIVIDUALS,
+  COMPLICATIONS,
+  UNITS_ORDINAL_WORDS,
+  UNITS_ORDINAL_WORDS_FEMININ,
+  normalize_constants,
+  __normalize_composite_dict,
+};

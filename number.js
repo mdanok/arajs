@@ -1,11 +1,19 @@
-import * as nmconst from "./consts/named_const.mjs";
+{
+  /*import * as nmconst from "./consts/named_const.mjs";
 import * as nbconst from "./consts/number_const.mjs";
-import * as araby from "./araby.mjs";
+import * as araby from "./araby.js";
 import { ArNumbers } from "./Numbers/ArNumber.mjs";
-export function text2number(text) {
+*/
+}
+const nmconst = require("./consts/named_const.js");
+const nbconst = require("./consts/number_const.js");
+const araby = require("./araby.js");
+const { ArNumbers } = require("./Numbers/ArNumbers");
+
+function text2number(text) {
   let total = 0;
   let partial = 0;
-  text = araby.strip_tashkeel(text);
+  text = araby.stripTashkeel(text);
   const words = text.split(" ");
 
   for (const word of words) {
@@ -39,7 +47,7 @@ export function text2number(text) {
   return total;
 }
 
-export function number2text(anumber) {
+function number2text(anumber) {
   if (typeof anumber === "number") {
     anumber = anumber.toString();
   } else if (typeof anumber === "string") {
@@ -56,7 +64,7 @@ export function number2text(anumber) {
   return arbn.int2str(anumber);
 }
 
-export function vocalizeNumber(wordlist, syn_tags = "") {
+function vocalizeNumber(wordlist, syn_tags = "") {
   let newlist = [];
   let prefix = "";
   let nextword = "";
@@ -64,7 +72,7 @@ export function vocalizeNumber(wordlist, syn_tags = "") {
   let tags = syn_tags;
   if (wordlist.length === 1) {
     let word = wordlist[0];
-    let word_nm = araby.strip_tashkeel(word);
+    let word_nm = araby.stripTashkeel(word);
     let key = word_nm;
     let voc = word;
 
@@ -106,7 +114,7 @@ export function vocalizeNumber(wordlist, syn_tags = "") {
 
   for (let i = 0; i < wordlist.length; i++) {
     let word = wordlist[i];
-    let word_nm = araby.strip_tashkeel(word);
+    let word_nm = araby.stripTashkeel(word);
     let key = word_nm;
 
     if (
@@ -204,12 +212,12 @@ export function vocalizeNumber(wordlist, syn_tags = "") {
   return newlist;
 }
 
-export function isUnit(word) {
+function isUnit(word) {
   return nbconst.UNIT_WORDS.hasOwnProperty(word);
 }
 
-export function vocalizeUnit(numeric, unit) {
-  const unitNm = araby.strip_tashkeel(unit);
+function vocalizeUnit(numeric, unit) {
+  const unitNm = araby.stripTashkeel(unit);
   if (!isUnit(unitNm)) {
     return unit;
   }
@@ -239,8 +247,8 @@ export function vocalizeUnit(numeric, unit) {
   }
 }
 
-export function getPreviousTag(word) {
-  word = araby.strip_tashkeel(word);
+function getPreviousTag(word) {
+  word = araby.stripTashkeel(word);
 
   if (nmconst.NOUN_NASEB_LIST.includes(word)) {
     return "منصوب";
@@ -253,7 +261,7 @@ export function getPreviousTag(word) {
   }
 }
 
-export function extractNumberPhrases(text) {
+function extractNumberPhrases(text) {
   const phrases = [];
 
   const wordlist = araby.tokenize(text);
@@ -268,7 +276,8 @@ export function extractNumberPhrases(text) {
   }
   return phrases;
 }
-export function extractNumberContext(text) {
+
+function extractNumberContext(text) {
   const phrases = [];
   const wordlist = araby.tokenize(text);
   const positions = detectNumberPhrasesPosition(wordlist);
@@ -297,11 +306,12 @@ export function extractNumberContext(text) {
   }
   return phrases;
 }
+
 function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-export function detectNumberPhrasesPosition(wordlist) {
+function detectNumberPhrasesPosition(wordlist) {
   const phrases = [];
   let startNumber = -1;
   let endNumber = false;
@@ -311,10 +321,10 @@ export function detectNumberPhrasesPosition(wordlist) {
 
     let nextword = null;
     if (i + 1 < wordlist.length) {
-      nextword = araby.strip_tashkeel(wordlist[i + 1]);
+      nextword = araby.stripTashkeel(wordlist[i + 1]);
     }
 
-    const wordNm = araby.strip_tashkeel(word);
+    const wordNm = araby.stripTashkeel(word);
     let key = wordNm;
 
     if (
@@ -354,7 +364,7 @@ export function detectNumberPhrasesPosition(wordlist) {
   return phrases;
 }
 
-export function detectNumbers(wordlist) {
+function detectNumbers(wordlist) {
   let starts = false;
   const taglist = [];
 
@@ -363,10 +373,10 @@ export function detectNumbers(wordlist) {
 
     let nextword = null;
     if (i + 1 < wordlist.length) {
-      nextword = araby.strip_tashkeel(wordlist[i + 1]);
+      nextword = araby.stripTashkeel(wordlist[i + 1]);
     }
 
-    const wordNm = araby.strip_tashkeel(word);
+    const wordNm = araby.stripTashkeel(word);
     let key = wordNm;
 
     if (
@@ -405,7 +415,7 @@ export function detectNumbers(wordlist) {
   return taglist;
 }
 
-export function detectNumberWords(text) {
+function detectNumberWords(text) {
   const phrasesContext = extractNumberContext(text);
   for (const phCon of phrasesContext) {
     if (phCon.length >= 3) {
@@ -415,12 +425,12 @@ export function detectNumberWords(text) {
       const numberedWords = phrase;
       const numeric = text2number(numberedWords);
       const tags = getPreviousTag(previous);
-      const wordlist = araby.strip_tashkeel(numberedWords).split(" ");
+      const wordlist = araby.stripTashkeel(numberedWords).split(" ");
       const vocalized = vocalizeNumber(wordlist, tags);
 
-      const sim = araby.vocalized_similarity(numberedWords, vocalized);
+      const sim = araby.vocalizedSimilarity(numberedWords, vocalized);
       const vocUnit = vocalizeUnit(numeric, nextword);
-      const simUnit = araby.vocalized_similarity(vocUnit, nextword);
+      const simUnit = araby.vocalizedSimilarity(vocUnit, nextword);
 
       if (sim < 0) {
         console.log(
@@ -437,7 +447,7 @@ export function detectNumberWords(text) {
   }
 }
 
-export function preTashkeelNumber(wordlist) {
+function preTashkeelNumber(wordlist) {
   const taglist = detectNumbers(wordlist);
   let previous = "";
   const vocalizedList = [];
@@ -471,7 +481,7 @@ export function preTashkeelNumber(wordlist) {
   return vocalizedList;
 }
 
-export function number2ordinal(anumber, feminin = false) {
+function number2ordinal(anumber, feminin = false) {
   let a = 0;
   if (typeof anumber === "number") {
     anumber = anumber.toString();
@@ -538,3 +548,67 @@ export function number2ordinal(anumber, feminin = false) {
   const ordinalString = newList.join(" ");
   return ordinalString;
 }
+
+{
+  /*function toArabic(number) {
+  const arabicNumerals = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+  return number
+    .toString()
+    .split("")
+    .map((digit) => arabicNumerals[parseInt(digit)])
+    .join("");
+}
+
+function toRoman(number) {
+  const romanNumerals = {
+    M: 1000,
+    CM: 900,
+    D: 500,
+    CD: 400,
+    C: 100,
+    XC: 90,
+    L: 50,
+    XL: 40,
+    X: 10,
+    IX: 9,
+    V: 5,
+    IV: 4,
+    I: 1,
+  };
+
+  let roman = "";
+  for (const key in romanNumerals) {
+    while (number >= romanNumerals[key]) {
+      roman += key;
+      number -= romanNumerals[key];
+    }
+  }
+
+  return roman;
+}
+
+function toPersian(number) {
+  const persianNumerals = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return number
+    .toString()
+    .split("")
+    .map((digit) => persianNumerals[parseInt(digit)])
+    .join("");
+}*/
+}
+
+module.exports = {
+  text2number,
+  number2text,
+  vocalizeNumber,
+  isUnit,
+  vocalizeUnit,
+  getPreviousTag,
+  extractNumberPhrases,
+  extractNumberContext,
+  detectNumberPhrasesPosition,
+  detectNumbers,
+  detectNumberWords,
+  preTashkeelNumber,
+  number2ordinal,
+};

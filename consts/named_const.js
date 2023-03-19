@@ -1,4 +1,4 @@
-export const RAFE3_LIST = [
+const RAFE3_LIST = [
   "أنه",
   "أنك",
   "أنها",
@@ -83,8 +83,7 @@ export const RAFE3_LIST = [
   "أخبرني",
   "ثنا",
 ];
-
-export const JAR_LIST = [
+const JAR_LIST = [
   "من",
   "عن",
   "إلى",
@@ -194,7 +193,7 @@ export const JAR_LIST = [
   "وَمُذْ",
 ];
 
-export const NOUN_NASEB_LIST = [
+const NOUN_NASEB_LIST = [
   "أن",
   "إن",
   "فإن",
@@ -207,4 +206,6 @@ export const NOUN_NASEB_LIST = [
   "فَإَنَّ",
 ];
 
-export const PROPER_NOUNS = ["عاصم", "جبريل", "أحمد"];
+const PROPER_NOUNS = ["عاصم", "جبريل", "أحمد"];
+
+module.exports = { RAFE3_LIST, JAR_LIST, NOUN_NASEB_LIST, PROPER_NOUNS };

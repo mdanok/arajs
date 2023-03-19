@@ -1,6 +1,6 @@
-import * as nbconst from "../consts/number_const.mjs";
+const nbconst = require("../consts/number_const.js");
 
-export class ArNumbers {
+class ArNumbers {
   constructor() {
     this._individual = nbconst.INDIVIDUALS;
     this.complications = nbconst.COMPLICATIONS;
@@ -135,3 +135,4 @@ export class ArNumbers {
     return string;
   }
 }
+module.exports = { ArNumbers };

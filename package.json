@@ -1,11 +1,11 @@
 {
-  "name": "jsarabic",
+  "name": "arajs",
   "version": "1.0.0",
-  "description": "Javascript edition an npm module that provides Arabic language processing capabilities for JavaScript applications, inspired by the popular Python package \"pyarabic\". With \"jsarabic\", developers can easily perform tasks such as Arabic text normalization, stemming, tokenization, and more, using familiar JavaScript syntax. This package is designed to be lightweight, easy to use, and highly performant, making it a great choice for any project that requires Arabic language processing in a JavaScript environment.",
-  "main": "araby.mjs",
+  "description": "An npm module that provides Arabic language processing capabilities for JavaScript applications, inspired by the popular Python package \"pyarabic\". With \"arajs\", developers can easily perform tasks such as Arabic text normalization, tokenization, and more, using familiar JavaScript syntax. This package is designed to be lightweight, easy to use, and highly performant, making it a great choice for any project that requires Arabic language processing in a JavaScript environment.",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "mdanok",
-  "license": "ISC"
+  "license": "MIT"
 }
