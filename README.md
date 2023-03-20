@@ -8,8 +8,6 @@ Features
 
 * Strip characters from text (harakat, tashkeel, small, tatweel, shadda)
 * Normalize ligatures, hamzas, tehs, and alefs in text
-* Romanize or "translate" arabic name and texts to english.
-* Extract Arabic names from the text.
 * Separate and join Arabic letters and marks
 * Check for shadda, vocalized words or text, Arabic strings, and Arabic ranges
 * Reduce tashkeel in text
@@ -30,19 +28,34 @@ Usage
 -----
 
 First, install the module:
-    npm i arajs
+
+```javascript
+npm i arajs
+```
+
+or
+
+```javascript
+npm install arajs
+```
+
 Secondlly, import the module:
 
-    const {number2text, stripTashkeel} = require("arajs");
+```javascript
+const {number2text, stripTashkeel} = require("arajs");
+```
 
 Now, you can use the various functions provided by the module to process and analyze Arabic text.
 
 Example
+
 -------
 
-    const number = 232;
-    console.log(number2text(number)); // مئتان و إثنان و ثلاثون
+```javascript
+const number = 232;
+console.log(number2text(number)); // مئتان و إثنان و ثلاثون
 
-    const text = 'مَرْحَبًا بِكُمْ';
-    const strippedText = stripTashkeel(text);
-    console.log(strippedText); // مرحبا بكم
+const text = 'مَرْحَبًا بِكُمْ';
+const strippedText = stripTashkeel(text);
+console.log(strippedText); // مرحبا بكم
+```
