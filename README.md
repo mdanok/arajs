@@ -33,6 +33,10 @@ First, install the module:
 ```javascript
 npm i arajs
 ```
+or
+```javascript
+npm install arajs
+```
 Secondlly, import the module:
 ```javascript
 const {number2text, stripTashkeel} = require("arajs");
