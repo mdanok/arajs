@@ -28,10 +28,16 @@ Usage
 -----
 
 First, install the module:
+
+```javascript
     npm i arajs
+```
+
 Secondlly, import the module:
 
+```javascript
     const {number2text, stripTashkeel} = require("arajs");
+```
 
 Now, you can use the various functions provided by the module to process and analyze Arabic text.
 
@@ -39,8 +45,9 @@ Example
 
 -------
 
-    const number = 232;
-    console.log(number2text(number)); // مئتان و إثنان و ثلاثون
+```javascript
+const number = 232;
+console.log(number2text(number)); // مئتان و إثنان و ثلاثون
 
 const text = 'مَرْحَبًا بِكُمْ';
 const strippedText = stripTashkeel(text);
