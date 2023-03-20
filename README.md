@@ -32,17 +32,18 @@ Usage
 First, install the module:
     npm i arajs
 Secondlly, import the module:
-
-    const {number2text, stripTashkeel} = require("arajs");
-
+```javascript:
+    const {number2text, stripTashkeel} = require("arajs");`
+```
 Now, you can use the various functions provided by the module to process and analyze Arabic text.
 
 Example
 -------
-
+```javascript:
     const number = 232;
     console.log(number2text(number)); // مئتان و إثنان و ثلاثون
 
     const text = 'مَرْحَبًا بِكُمْ';
     const strippedText = stripTashkeel(text);
     console.log(strippedText); // مرحبا بكم
+```
