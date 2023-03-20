@@ -1,6 +1,7 @@
 {
   "name": "arajs",
-  "version": "1.0.2",
+  "version": "1.0.3",
+  "homepage": "https://github.com/mdanok/arajs",
   "description": "An npm module that provides Arabic language processing capabilities for JavaScript applications, inspired by the popular Python package \"pyarabic\". With \"arajs\", developers can easily perform tasks such as Arabic text normalization, tokenization, and more, using familiar JavaScript syntax. This package is designed to be lightweight, easy to use, and highly performant, making it a great choice for any project that requires Arabic language processing in a JavaScript environment.",
   "main": "index.js",
   "keywords": [
