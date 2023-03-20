@@ -1,7 +1,5 @@
 const AR_CONST = require("./consts/arabic_const.js");
 
-//import * as AR_CONST from "./consts/arabic_const.js";
-
 const unichr = (code) => {
   return String.fromCharCode(code);
 };
@@ -508,6 +506,37 @@ function spellit(word, lang = "ar") {
   return names.join(", ");
 }
 
+function wordFrequency(inputString, limit = 100) {
+  const wordFrequency = new Map();
+  const words = inputString.split(/\s+/);
+  for (const word of words) {
+    if (word.trim() !== "") {
+      wordFrequency.set(word, (wordFrequency.get(word) || 0) + 1);
+    }
+  }
+  const sortedWordFrequency = new Map(
+    [...wordFrequency].sort((a, b) => b[1] - a[1]).slice(0, limit)
+  );
+
+  return sortedWordFrequency;
+}
+
+function charFrequency(inputString) {
+  const charFrequency = new Map();
+
+  for (const char of inputString) {
+    if (char.trim() !== "") {
+      charFrequency.set(char, (charFrequency.get(char) || 0) + 1);
+    }
+  }
+
+  const sortedCharFrequency = new Map(
+    [...charFrequency].sort((a, b) => b[1] - a[1])
+  );
+
+  return sortedCharFrequency;
+}
+
 module.exports = {
   unichr,
   isSukun,
@@ -563,4 +592,6 @@ module.exports = {
   fixSpaces,
   autoCorrect,
   spellit,
+  wordFrequency,
+  charFrequency,
 };
