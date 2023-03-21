@@ -4,6 +4,8 @@
 
 #### This module provides various functions to process and analyze Arabic **text** and **numbers**
 
+#### Read the documentation [here](https://mdanok.gitbook.io/arajs/)
+
 Features
 --------
 
@@ -60,15 +62,17 @@ const strippedText = stripTashkeel(text);
 console.log(strippedText); // مرحبا بكم
 ```
 
-Coming Soon
+Features to be implemented
 -------
 
-* [ ] Documentation for the package.
-
+* [X] Documentation for the package.
 * [ ] Names generating and extraction from text.
 * [ ] Names romanizition and translation.
 * [ ] Arabic verb conjugator.
 * [ ] Text Taskheel.
 
-check the repo [here](https://www.github.com/mdanok/arajs)
+##### check the repo [here](https://www.github.com/mdanok/arajs)
+
+##### Read the documentation [here](https://mdanok.gitbook.io/arajs/)
+
 -------

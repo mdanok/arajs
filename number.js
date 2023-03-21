@@ -596,7 +596,7 @@ function toPersian(number) {
     .join("");
 }*/
 }
-
+console.log(number2ordinal(22));
 module.exports = {
   text2number,
   number2text,

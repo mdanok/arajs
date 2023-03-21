@@ -44,12 +44,15 @@ const arabicRange = () =>
     String.fromCharCode(0x0600 + i)
   );
 
-const hasShadda = (word) => shaddaRegex.test(word);
-const isVocalized = (word) => word.split("").some((char) => isTashkeel(char));
+const hasShadda = (word) => word.includes(AR_CONST.SHADDA);
+const isVocalized = (word) => {
+  return isArabicRange(word)
+    ? word.split("").some((char) => isTashkeel(char))
+    : false;
+};
 const isVocalizedText = (text) => AR_CONST.HARAKAT_PATTERN.test(text);
 const isArabicString = (text) => !AR_CONST.ARABIC_STRING.test(text);
 const isArabicRange = (text) => !AR_CONST.ARABIC_RANGE.test(text);
-
 function isArabicWord(word) {
   const hasInvalidChars =
     /([^\u0600-\u0652\u0622\u0623\u0625\u0627\u0671\u0670\u0649\u064A])/g.test(
@@ -309,20 +312,20 @@ function waznlike(word1, wazn, extractRoot = false) {
   if (currentWordChar !== undefined || currentWaznChar !== undefined) {
     return false;
   }
-  return extractRoot ? root.join("") : true;
+  return extractRoot ? root.reverse().join("") : true;
 }
 
 function shaddalike(partial, fully) {
-  if (!has_shadda(partial)) {
+  if (!hasShadda(partial)) {
     return true;
   }
 
-  if (!has_shadda(fully) && has_shadda(partial)) {
+  if (!hasShadda(fully) && hasShadda(partial)) {
     return false;
   }
 
-  partial = strip_harakat(partial);
-  fully = strip_harakat(fully);
+  partial = stripHarakat(partial);
+  fully = stripHarakat(fully);
 
   const partialStack = [...partial].reverse();
   const fullyStack = [...fully].reverse();
@@ -367,7 +370,6 @@ function reduceTashkeel(text) {
     return reducedText.replace(regex, "");
   }, text);
 }
-
 function vocalizedSimilarity(word1, word2) {
   const stack1 = Array.from(word1);
   const stack2 = Array.from(word2);
@@ -399,7 +401,8 @@ function vocalizedSimilarity(word1, word2) {
   return errCount > 0 ? -errCount : true;
 }
 function sentenceTokenize(text) {
-  const sentences = text.split(/([.,:;،؟?\n])+([\n\t\r ])+/gu);
+  const regex = /([.,:;،؟?\n])+([\n\t\r ])+/g;
+  const sentences = text.replace(regex, "$1<SPLIT>").split("<SPLIT>");
   return sentences;
 }
 
@@ -412,25 +415,19 @@ function tokenize(text = "", conditions = [], morphs = []) {
       morphs = [morphs];
     }
 
-    let tokens = text.split(AR_CONST.TOKEN_PATTERN).filter(Boolean);
-
-    tokens = tokens
-      .map((tok) => tok.replace(AR_CONST.TOKEN_REPLACE, ""))
-      .filter((tok) => tok.replace(AR_CONST.TOKEN_REPLACE, ""));
+    let tokens = text.match(AR_CONST.TOKEN_PATTERN).filter(Boolean);
 
     if (conditions.length) {
       tokens = tokens.filter((tok) => conditions.every((cond) => cond(tok)));
     }
 
-    function morph(tok) {
-      for (let m of morphs) {
-        tok = m(tok);
-      }
-      return tok;
-    }
-
     if (morphs.length) {
-      tokens = tokens.flatMap((tok) => morph(tok));
+      tokens = tokens.map((tok) => {
+        for (let m of morphs) {
+          tok = m(tok);
+        }
+        return tok;
+      });
     }
     return tokens.filter(Boolean);
   } else {
@@ -458,6 +455,7 @@ function tokenizeWithLocation(text) {
 
   return tokens;
 }
+
 function fixSpaces(text) {
   text = text.replace(
     AR_CONST.FIX_SPACES_PAT,
@@ -536,7 +534,6 @@ function charFrequency(inputString) {
 
   return sortedCharFrequency;
 }
-
 module.exports = {
   unichr,
   isSukun,

@@ -154,7 +154,9 @@ function normalizeDigits(text, source = "all", out = "west") {
     .map((char) => sourceToOutTbl[source][out][char] || char)
     .join("");
 }
-
+const text = "مرحبا";
+const convertedText = convert(text, "utf", "tim");
+console.log(convertedText);
 module.exports = {
   convert,
   segmentLanguage,
