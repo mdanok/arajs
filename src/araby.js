@@ -139,7 +139,12 @@ function strip_diacritics(text) {
 }
 
 const normalizeLigature = (text) => {
-  return text ? text.replace(AR_CONST.LIGUATURES_PATTERN, LAM + ALEF) : text;
+  return text
+    ? text.replace(
+        AR_CONST.LIGUATURES_PATTERN,
+        `${AR_CONST.LAM}${AR_CONST.ALEF}`
+      )
+    : text;
 };
 
 const normalizeHamza = (word, method = "uniform") => {
@@ -173,7 +178,7 @@ const normalizeHamza = (word, method = "uniform") => {
 };
 
 const normalizeTeh = (text) => {
-  return text.replace(AR_CONST.TEH_MARBUTA_PATTERN, AR_CONST.HEH);
+  return text.replace(RegExp(AR_CONST.TEH_MARBUTA, "g"), AR_CONST.HEH);
 };
 
 const normalizeAlef = (text) => {
@@ -416,7 +421,9 @@ function tokenize(text = "", conditions = [], morphs = []) {
     }
 
     let tokens = text.match(AR_CONST.TOKEN_PATTERN).filter(Boolean);
-
+    tokens = tokens
+      .map((tok) => tok.replace(AR_CONST.TOKEN_REPLACE, ""))
+      .filter((tok) => tok);
     if (conditions.length) {
       tokens = tokens.filter((tok) => conditions.every((cond) => cond(tok)));
     }
@@ -455,7 +462,7 @@ function tokenizeWithLocation(text) {
 
   return tokens;
 }
-
+console.log(separate("اَلْعَرَبَيَةُ"));
 function fixSpaces(text) {
   text = text.replace(
     AR_CONST.FIX_SPACES_PAT,
@@ -573,9 +580,11 @@ module.exports = {
   stripTashkeel,
   stripSmall,
   stripTatweel,
+  stripShadda,
   normalizeLigature,
   normalizeHamza,
   normalizeTeh,
+  normalizeAlef,
   separate,
   joint,
   vocalizedlike,

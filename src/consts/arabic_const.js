@@ -353,7 +353,10 @@ const TASHKEEL_PATTERN = new RegExp("[" + TASHKEEL_STRING + "]", "gu");
 const HAMZAT_PATTERN = new RegExp("[" + HAMZAT_STRING + "]", "gu");
 const ALEFAT_PATTERN = new RegExp("[" + ALEFAT.join("") + "]", "gu");
 const LIGUATURES_PATTERN = new RegExp("[" + LIGUATURES.join("") + "]", "gu");
-const TOKEN_PATTERN = /(?:\p{L}[\u064B-\u0652\u0670]*|\p{N})+/gu;
+const TOKEN_PATTERN = new RegExp(
+  "([\\u0041-\\u005A\\u0061-\\u007A\\u0670\\u064B-\\u0652\\u0621-\\u064A']+|[^\\u0041-\\u005A\\u0061-\\u007A\\u0670\\u064B-\\u0652\\u0621-\\u064A']+)",
+  "gu"
+);
 const TOKEN_PATTERN_SPLIT = /([\w\u0600-\u06FF']+)/gu;
 const TOKEN_REPLACE = new RegExp("\\t|\\r|\\f|\\v| ", "gu");
 const ARABIC_STRING = new RegExp(
