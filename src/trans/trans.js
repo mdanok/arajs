@@ -156,7 +156,6 @@ function normalizeDigits(text, source = "all", out = "west") {
 }
 const text = "مرحبا";
 const convertedText = convert(text, "utf", "tim");
-console.log(convertedText);
 module.exports = {
   convert,
   segmentLanguage,
