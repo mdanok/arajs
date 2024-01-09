@@ -462,7 +462,7 @@ function tokenizeWithLocation(text) {
 
   return tokens;
 }
-console.log(separate("اَلْعَرَبَيَةُ"));
+
 function fixSpaces(text) {
   text = text.replace(
     AR_CONST.FIX_SPACES_PAT,
